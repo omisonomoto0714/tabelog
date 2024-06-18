@@ -5,8 +5,8 @@ html {
 body {
 	font-family: "Noto Sans JP", sans-serif;
 	background-color: #f2edb6;
-	width: 100%;
-	height: 100%;
+/*	width: 100%;*/
+/*	height: 100%;*/
 
 }
 
@@ -37,7 +37,7 @@ p {
 .nagoyamesi-wrapper {
 	min-height: 100vh;
 	position: relative;
-/*	padding-bottom: 60px;*/
+	padding-bottom: 60px;
 	box-sizing: border-box;
 }
 
@@ -47,13 +47,13 @@ p {
 }
 
 .nagoyamesi-logo {
-	height: 100px;
+	height: 80px;
 }
 
 footer {
 	width: 100%;
 	height: 150px;
-	position: stichy;
+	position: absolute;
 	bottom: 0;
 
 /*	margin-bottom: -;*/
@@ -62,7 +62,7 @@ footer {
 
 
 .footer-logo {
-	height: 100px
+	height: 90px
 }
 
 .nagoyamesi-btn {
@@ -95,6 +95,30 @@ footer {
 border-bottom {
 	color: #885827;
 }
+
+.nagoyamesi-link-danger {
+     color: #f2594b;
+ }
+ 
+ .nagoyamesi-link-danger:hover {
+     color: #a63c3c;
+ }
+ 
+ .nagoyamesi-btn-danger {
+     background-color: #f2594b !important;
+     transition: 0.1s;
+ }
+ 
+ .nagoyamesi-btn-danger:hover {
+   opacity: 0.8;   
+ }
+
+.alert.alert-info {
+	background-color: #decc9d !important;
+	border-color: #decc9d !important;
+	color: #885827 !important;
+}
+
 
 @media screen and (min-width: 1400px) {
 	.nagoyamesi-container {

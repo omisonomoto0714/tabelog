@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.nagoyamesi.entity.Restaurant;
+import com.example.nagoyamesi.form.RestaurantEditForm;
 import com.example.nagoyamesi.form.RestaurantRegisterForm;
 import com.example.nagoyamesi.repository.RestaurantRepository;
 
@@ -36,6 +37,8 @@ public class RestaurantService {
 			Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
 			copyImageFile(imageFile,filePath);
 			restaurant.setImageName(hashedImageName);
+		
+			
 		}
 		
 		restaurant.setName(restaurantRegisterForm.getName());
@@ -51,6 +54,35 @@ public class RestaurantService {
 		
 		restaurantRepository.save(restaurant);
 	}
+	
+	
+	
+	
+	@Transactional
+    public void update(RestaurantEditForm restaurantEditForm) {
+        Restaurant restaurant = restaurantRepository.getReferenceById(restaurantEditForm.getId());
+        MultipartFile imageFile = restaurantEditForm.getImageFile();
+        
+        if (!imageFile.isEmpty()) {
+            String imageName = imageFile.getOriginalFilename(); 
+            String hashedImageName = generateNewFileName(imageName);
+            Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+            copyImageFile(imageFile, filePath);
+            restaurant.setImageName(hashedImageName);
+        }
+        
+        restaurant.setName(restaurantEditForm.getName());                
+        restaurant.setDescription(restaurantEditForm.getDescription());
+        restaurant.setOpeningTime(restaurantEditForm.getOpeningTime());
+        restaurant.setClosingTime(restaurantEditForm.getClosingTime());
+        restaurant.setLowestPrice(restaurantEditForm.getLowestPrice());
+        restaurant.setHighestPrice(restaurantEditForm.getHighestPrice());
+        restaurant.setPostalCode(restaurantEditForm.getPostalCode());
+        restaurant.setAddress(restaurantEditForm.getAddress());
+        restaurant.setPhoneNumber(restaurantEditForm.getPhoneNumber());
+                    
+        restaurantRepository.save(restaurant);
+    }    
 	
 	public String generateNewFileName(String fileName) {
 		String[] fileNames = fileName.split("\\.");
