@@ -36,7 +36,7 @@
 
 						<div class="mb-3">
 							<img th:if="${restaurant.getImageName()}"
-								th:src="@{/storages/__${restaurant.getImageName()}__}" alt="店舗画像">
+								th:src="@{/storage/__${restaurant.getImageName()}__}" alt="店舗画像">
 							<img th:unless="${restaurant.getImageName()}" th:src="@{/images/noImage.png}"
 								alt="NO IMAGE">
 						</div>
