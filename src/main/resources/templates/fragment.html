@@ -57,6 +57,10 @@
 								<a class="nav-link" th:href="@{/login}">ログイン</a>
 							</li>
 							
+							<li class="nav-item" sec:authorize="isAnonymous()">
+                                 <a class="nav-link" th:href="@{/signup}">会員登録</a>
+                             </li>   
+							
 							
 							<!--ログイン済み-->
 							<li class="nav-item dropdpwm" sec:authorize="hasRole('ROLE_GENERAL')">
@@ -66,6 +70,10 @@
 								
 								
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownGeneral">
+									 <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/user}">会員情報</a>  
+                                     
+                                     <div class="dropdown-divider"></div>
+									
 									<a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/logout}" onclick="event.preventDefault(); document/getElementById('logout-form').submit();">
 										ログアウト
 									</a>
@@ -75,7 +83,7 @@
 							
 							
 							<!--管理者側-->
-							<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADOMIN')">
+							<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
 								<a id="navbarDropdownAdmin" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 									管理者メニュー
 								</a>

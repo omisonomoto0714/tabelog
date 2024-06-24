@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<div th:replace="~{fragment :: meta}"></div>
 		
@@ -21,6 +21,12 @@
 					
 					<div th:if="${param.loggedOut}" class="alert alert-info">
 						ログアウトしました。
+					</div>
+					
+					
+					
+					<div th:if="${successMessage}" class="alert alert-info">
+						<span th:text="${successMessage}"></span>
 					</div>
 					
 					

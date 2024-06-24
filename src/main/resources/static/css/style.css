@@ -37,7 +37,7 @@ p {
 .nagoyamesi-wrapper {
 	min-height: 100vh;
 	position: relative;
-	padding-bottom: 60px;
+	padding-bottom: 500px;
 	box-sizing: border-box;
 }
 
@@ -117,6 +117,11 @@ border-bottom {
 	background-color: #decc9d !important;
 	border-color: #decc9d !important;
 	color: #885827 !important;
+}
+
+
+.samuraitravel-dropdown-item:active {
+	background-color: #decc9d;
 }
 
 

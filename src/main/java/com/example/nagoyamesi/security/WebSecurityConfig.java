@@ -13,30 +13,29 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-		.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/").permitAll() //すべてのユーザー許可
-				.requestMatchers("/admin/**").hasRole("ADMIN")  //管理者のみ
-				.anyRequest().authenticated()  //それ以外はログインが必須
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**")
+						.permitAll() //すべてのユーザー許可
+						.requestMatchers("/admin/**").hasRole("ADMIN") //管理者のみ
+						.anyRequest().authenticated() //それ以外はログインが必須
 				)
 				.formLogin((form) -> form
-						.loginPage("/login")  //ログインページ
-						.loginProcessingUrl("/login")  //ログインフォームの送信先
-						.defaultSuccessUrl("/?loggedIn")  //ログイン成功時の送信先
-						.failureUrl("/login?error")  //ログイン失敗時の送信先
-						.permitAll()
-						)
+						.loginPage("/login") //ログインページ
+						.loginProcessingUrl("/login") //ログインフォームの送信先
+						.defaultSuccessUrl("/?loggedIn") //ログイン成功時の送信先
+						.failureUrl("/login?error") //ログイン失敗時の送信先
+						.permitAll())
 				.logout((logout) -> logout
-						.logoutSuccessUrl("/?loggedOut")  //ログアウト後のリダイレクト先
-						.permitAll()
-						);
-		
+						.logoutSuccessUrl("/?loggedOut") //ログアウト後のリダイレクト先
+						.permitAll());
+
 		return http.build();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
