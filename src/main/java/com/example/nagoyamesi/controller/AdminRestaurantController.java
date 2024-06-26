@@ -96,29 +96,27 @@ public class AdminRestaurantController {
 
 		return "admin/restaurants/edit";
 	}
-	
-	
-	 @PostMapping("/{id}/update")
-     public String update(@ModelAttribute @Validated RestaurantEditForm restaurantEditForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {        
-         if (bindingResult.hasErrors()) {
-             return "admin/restaurants/edit";
-         }
-         
-         restaurantService.update(restaurantEditForm);
-         redirectAttributes.addFlashAttribute("successMessage", "店舗情報を編集しました。");
-         
-         return "redirect:/admin/restaurants";
-     }    
-	 
-	 
-	 
-	 @PostMapping("/{id}/delete")
-     public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {        
-         restaurantRepository.deleteById(id);
-                 
-         redirectAttributes.addFlashAttribute("successMessage", "店舗を削除しました。");
-         
-         return "redirect:/admin/restaurants";
-     }    
+
+	@PostMapping("/{id}/update")
+	public String update(@ModelAttribute @Validated RestaurantEditForm restaurantEditForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			return "admin/restaurants/edit";
+		}
+
+		restaurantService.update(restaurantEditForm);
+		redirectAttributes.addFlashAttribute("successMessage", "店舗情報を編集しました。");
+
+		return "redirect:/admin/restaurants";
+	}
+
+	@PostMapping("/{id}/delete")
+	public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+		restaurantRepository.deleteById(id);
+
+		redirectAttributes.addFlashAttribute("successMessage", "店舗を削除しました。");
+
+		return "redirect:/admin/restaurants";
+	}
 
 }
