@@ -1,15 +1,15 @@
-let Date = new Date();
-Date = Date.setMonth(Date.getMonth() + 3);
+let maxDate = new Date();
+maxDate = maxDate.setMonth(maxDate.getMonth() + 3);
 
-flatpickr('#fromCheckinDateToCheckoutDate', {
+flatpickr('#fromReservationDate', {
 	mode: "range",
 	locale: 'ja',
 	minDate: 'today',
-	maxDate: maxDate
+//	maxDate: maxDate
 });
 
 
-flatpickr('#visitTime', {
+flatpickr('#fromReservationTime', {
 	enableTime: true,
 	noCalendar: true,
 	dateFormat: "H:i",

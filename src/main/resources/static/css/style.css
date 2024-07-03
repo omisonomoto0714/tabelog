@@ -168,6 +168,14 @@ border-bottom {
  }
 
 
+.nagoyamesi-star {
+     color: #ffa500;
+ } 
+ 
+ .nagoyamesi-star:focus {
+     color: #ffa500;
+ }
+
 
 @media screen and (min-width: 1400px) {
 	.nagoyamesi-container {

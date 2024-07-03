@@ -42,6 +42,7 @@ public class RestaurantRegisterForm {
 	@NotBlank(message = "電話番号を入力してください。")
 	private String phoneNumber;
 
-	
+	@NotNull(message = "カテゴリを選択してください。")
+	private Integer categoryId;
 
 }
