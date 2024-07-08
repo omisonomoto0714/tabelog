@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReservationRegisterForm {
-	private Integer houseId;
+	private Integer restaurantId;
 
 	private Integer userId;
 

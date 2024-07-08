@@ -23,6 +23,10 @@ INSERT IGNORE INTO categories (id, name) VALUES (4, '焼肉');
 INSERT IGNORE INTO categories (id, name) VALUES (5, '海鮮系');
 INSERT IGNORE INTO categories (id, name) VALUES (6, 'スイーツ');
 INSERT IGNORE INTO categories (id, name) VALUES (7, 'ハンバーガー');
+INSERT IGNORE INTO categories (id, name) VALUES (8, '丼もの');
+INSERT IGNORE INTO categories (id, name) VALUES (9, 'お好み焼き');
+INSERT IGNORE INTO categories (id, name) VALUES (10, '鍋');
+INSERT IGNORE INTO categories (id, name) VALUES (11, '郷土料理');
 
 
 --roles
@@ -66,7 +70,7 @@ INSERT IGNORE INTO reservations (id, restaurant_id, user_id, reservation_date, r
 
 
 
---
+--reviews
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (1, 1, 1, 5, '落ち着いた雰囲気でゆっくり過ごせました。');
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (2, 1, 2, 4, '伝統的なたれがおいしかったです。');
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (3, 1, 3, 4, '駅からも近く分かりやすいところにありました。');
@@ -79,3 +83,19 @@ INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (10, 1, 10, 5, '英語で対応している店員さんもいてすごかったです。');
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (11, 1, 11, 4, '座席も多く子連れでも入りやすかったです。');
 INSERT IGNORE INTO reviews (id, restaurant_id, user_id, score, content) VALUES (12, 1, 12, 5, 'おいしかったです。');
+
+
+
+-- favoritesテーブル
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (1, 1, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (2, 2, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (3, 3, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (4, 4, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (5, 5, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (6, 6, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (7, 7, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (8, 8, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (9, 9, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (10, 10, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (11, 11, 1);
+ INSERT IGNORE INTO favorites (id, restaurant_id, user_id) VALUES (12, 12, 1);

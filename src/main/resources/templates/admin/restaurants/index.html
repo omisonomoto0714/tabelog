@@ -7,7 +7,7 @@
 	<div th:replace="~{fragment :: styles}"></div>
 
 
-	<title>飲食店一覧</title>
+	<title>店舗一覧</title>
 </head>
 
 <body>
@@ -99,14 +99,16 @@
 											th:href="@{/admin/restaurants(page = ${restaurantPage.getNumber() - 1}, keyword = ${keyword})}"
 											class="page-link nagoyamesi-page-link">前</a>
 									</li>
+									
 									<li th:each="i : ${#numbers.sequence(0, restaurantPage.getTotalPages() - 1)}"
 										class="page-item">
 										<span th:if="${i == restaurantPage.getNumber()}"
 											class="page-link active nagoyamesi-active" th:text="${i + 1}"></span>
 										<a th:unless="${i == restaurantPage.getNumber()}"
-											th:href="@{/admin/restaurants(page = ${i}, keywprd = ${keyword})}"
+											th:href="@{/admin/restaurants(page = ${i}, keyword = ${keyword})}"
 											class="page-link nagoyamesi-page-link" th:text="${i + 1}"></a>
 									</li>
+									
 									<li class="page-item">
 										<span th:if="${restaurantPage.isLast()}" class="page-link disabled">次</span>
 										<a th:unless="${restaurantPage.isLast()}"

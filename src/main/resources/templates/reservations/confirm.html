@@ -30,8 +30,8 @@
                              <form method="post" th:action="@{/restaurants/__${restaurant.getId()}__/reservations/create}" th:object="${reservationRegisterForm}">
                                  <input type="hidden" th:field="*{restaurantId}">
                                  <input type="hidden" th:field="*{userId}">
-                                 <input type="hidden" th:field="*{fromReservedDate}">
-                                 <input type="hidden" th:field="*{fromReservedTime}">
+                                 <input type="hidden" th:field="*{reservationDate}">
+                                 <input type="hidden" th:field="*{reservationTime}">
                                  <input type="hidden" th:field="*{numberOfPeople}">
                                  
              
@@ -42,7 +42,7 @@
                                          </div>
                  
                                          <div class="col">
-                                             <span th:text="*{fromReservedDate}"></span>
+                                             <span th:text="*{reservationDate}"></span>
                                          </div>
                                      </div>
                                  </div>     
@@ -54,7 +54,7 @@
                                          </div>
                  
                                          <div class="col">
-                                             <span th:text="*{fromReservedTime}"></span>
+                                             <span th:text="*{reservationTime}"></span>
                                          </div>
                                      </div>
                                  </div> 

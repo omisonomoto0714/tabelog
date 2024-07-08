@@ -68,4 +68,9 @@ public class UserController {
 		return "redirect:/user";
 	}
 
+	@GetMapping("/paid")
+	public String paid(Model model) {
+		return "/user/paid";
+	}
+
 }

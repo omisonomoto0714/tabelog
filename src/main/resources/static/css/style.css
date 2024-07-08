@@ -79,6 +79,7 @@ footer {
 	
 }
 
+
 .nagoyamesi-btn:hover {
 	opacity: 0.8;
 }
@@ -129,7 +130,7 @@ border-bottom {
 }
 
 
-.samuraitravel-dropdown-item:active {
+.nagoyamesi-dropdown-item:active {
 	background-color: #decc9d;
 }
 
@@ -174,6 +175,22 @@ border-bottom {
  
  .nagoyamesi-star:focus {
      color: #ffa500;
+ }
+ 
+ 
+ .form-label {
+	 background-color: #decc9d;
+	 width: 28%;
+	 height: 100%;
+	 border-radius: 5%;
+ }
+ 
+ 
+ .sample-png {
+	 size: 50px;
+	 width: 25rem;
+	 height: 25rem;
+	 border: solid 3px #885827;
  }
 
 

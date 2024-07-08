@@ -1,6 +1,8 @@
 package com.example.nagoyamesi.controller;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyamesi.entity.Reservation;
@@ -65,13 +68,22 @@ public class ReservationController {
 		LocalTime openingTime = restaurant.getOpeningTime();
 		LocalTime closingTime = restaurant.getClosingTime();
 
-		boolean isWithinOpeningTime = reservationService.isWithinOpeningTime(reservationTime.toString(),
-				openingTime.toString());
-		boolean isWithinClosingTime = reservationService.isWithinClosingTime(reservationTime.toString(),
-				closingTime.toString());
+		boolean isReservationTime = false;
+		boolean isWithinOpeningTime = false;
+		boolean isWithinClosingTime = false;
 
-		if (!isWithinOpeningTime || !isWithinClosingTime) {
-			bindingResult.rejectValue("fromReservationTime", "error.reservationInputForm", "予約時間は営業時間内に設定してください。");
+		if (Objects.isNull(reservationTime)) {
+			isReservationTime = true;
+		} else {
+
+			isWithinOpeningTime = reservationService.isWithinOpeningTime(reservationTime.toString(),
+					openingTime.toString());
+			isWithinClosingTime = reservationService.isWithinClosingTime(reservationTime.toString(),
+					closingTime.toString());
+		}
+
+		if (!isWithinOpeningTime || !isWithinClosingTime || isReservationTime) {
+			bindingResult.rejectValue("reservationTime", "error.reservationInputForm", "予約時間は営業時間内に設定してください。");
 			model.addAttribute("errorMessage", "予約内容に不備があります。");
 			model.addAttribute("restaurant", restaurant);
 			return "restaurants/show";
@@ -82,7 +94,7 @@ public class ReservationController {
 		return "redirect:/restaurants/{id}/reservations/confirm";
 	}
 
-	@GetMapping("/houses/{id}/reservations/confirm")
+	@GetMapping("/restaurants/{id}/reservations/confirm")
 	public String confirm(@PathVariable(name = "id") Integer id,
 			@ModelAttribute ReservationInputForm reservationInputForm,
 			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
@@ -90,16 +102,24 @@ public class ReservationController {
 		Restaurant restaurant = restaurantRepository.getReferenceById(id);
 		User user = userDetailsImpl.getUser();
 
-		String fromReservedDate = reservationInputForm.getFromReservationDate();
-		String fromReservedTime = reservationInputForm.getFromReservationTime();
+		LocalDate reservedDate = reservationInputForm.getReservationDate();
+		LocalTime reservedTime = reservationInputForm.getReservationTime();
 
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(restaurant.getId(),
-				user.getId(), fromReservedDate.toString(), fromReservedTime.toString(),
+				user.getId(), reservedDate.toString(),
+				reservedTime.toString(),
 				reservationInputForm.getNumberOfPeople());
 
 		model.addAttribute("restaurant", restaurant);
 		model.addAttribute("reservationRegisterForm", reservationRegisterForm);
 
 		return "reservations/confirm";
+	}
+
+	@PostMapping("/restaurants/{id}/reservations/create")
+	public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {
+		reservationService.create(reservationRegisterForm);
+
+		return "redirect:/reservations?reserved";
 	}
 }

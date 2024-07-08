@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.nagoyamesi.entity.Favorite;
 import com.example.nagoyamesi.entity.Restaurant;
 import com.example.nagoyamesi.entity.Review;
 import com.example.nagoyamesi.entity.User;
 import com.example.nagoyamesi.form.ReservationInputForm;
+import com.example.nagoyamesi.repository.FavoriteRepository;
 import com.example.nagoyamesi.repository.RestaurantRepository;
 import com.example.nagoyamesi.repository.ReviewRepository;
 import com.example.nagoyamesi.security.UserDetailsImpl;
+import com.example.nagoyamesi.service.FavoriteService;
 import com.example.nagoyamesi.service.ReviewService;
 
 @Controller
@@ -29,12 +32,16 @@ public class RestaurantController {
 	private final RestaurantRepository restaurantRepository;
 	private final ReviewRepository reviewRepository;
 	private final ReviewService reviewService;
+	private final FavoriteService favoriteService;
+	private final FavoriteRepository favoriteRepository;
 
 	public RestaurantController(RestaurantRepository restaurantRepository, ReviewRepository reviewRepository,
-			ReviewService reviewService) {
+			ReviewService reviewService, FavoriteService favoriteService, FavoriteRepository favoriteRepository) {
 		this.restaurantRepository = restaurantRepository;
 		this.reviewRepository = reviewRepository;
 		this.reviewService = reviewService;
+		this.favoriteService = favoriteService;
+		this.favoriteRepository = favoriteRepository;
 	}
 
 	@GetMapping
@@ -82,12 +89,19 @@ public class RestaurantController {
 	@GetMapping("{id}")
 	public String show(@PathVariable(name = "id") Integer id, Model model,
 			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+
 		Restaurant restaurant = restaurantRepository.getReferenceById(id);
+		Favorite favorite = null;
 		boolean hasUserAlreadyReviewed = false;
+		boolean isFavorite = false;
 
 		if (userDetailsImpl != null) {
 			User user = userDetailsImpl.getUser();
 			hasUserAlreadyReviewed = reviewService.hasUserAlreadyReviewed(restaurant, user);
+			isFavorite = favoriteService.isFavorite(restaurant, user);
+			if (isFavorite) {
+				favorite = favoriteRepository.findByRestaurantAndUser(restaurant, user);
+			}
 
 		}
 
@@ -99,6 +113,8 @@ public class RestaurantController {
 		model.addAttribute("hasUserAlreadyReviewed", hasUserAlreadyReviewed);
 		model.addAttribute("newReviews", newReviews);
 		model.addAttribute("totalReviewCount", totalReviewCount);
+		model.addAttribute("favorite", favorite);
+		model.addAttribute("isFavorite", isFavorite);
 
 		return "restaurants/show";
 	}

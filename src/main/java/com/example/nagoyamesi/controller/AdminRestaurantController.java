@@ -62,8 +62,9 @@ public class AdminRestaurantController {
 	@GetMapping("/{id}")
 	public String show(@PathVariable(name = "id") Integer id, Model model) {
 		Restaurant restaurant = restaurantRepository.getReferenceById(id);
-
+		Category category = categoryRepository.getReferenceById(restaurant.getCategoryId());
 		model.addAttribute("restaurant", restaurant);
+		model.addAttribute("category", category);
 
 		return "admin/restaurants/show";
 	}
@@ -97,12 +98,12 @@ public class AdminRestaurantController {
 	public String edit(@PathVariable(name = "id") Integer id, Model model) {
 		Restaurant restaurant = restaurantRepository.getReferenceById(id);
 		String imageName = restaurant.getImageName();
+		List<Category> categoryList = categoryRepository.findAll();
 		RestaurantEditForm restaurantEditForm = new RestaurantEditForm(restaurant.getId(), restaurant.getName(), null,
 				restaurant.getDescription(), restaurant.getOpeningTime(), restaurant.getClosingTime(),
 				restaurant.getLowestPrice(), restaurant.getHighestPrice(), restaurant.getPostalCode(),
-				restaurant.getPhoneNumber(), restaurant.getAddress(), restaurant.getCategoryId());
+				restaurant.getAddress(), restaurant.getPhoneNumber(), restaurant.getCategoryId());
 
-		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("imageName", imageName);
 		model.addAttribute("restaurantEditForm", restaurantEditForm);
 		model.addAttribute("categoryList", categoryList);
