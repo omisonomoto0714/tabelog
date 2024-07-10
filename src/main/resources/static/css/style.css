@@ -192,6 +192,16 @@ border-bottom {
 	 height: 25rem;
 	 border: solid 3px #885827;
  }
+ 
+ 
+ 
+ .d-block {
+	 width: 100%;
+	 height: 800px;
+	 size: 100%;
+ }
+ 
+
 
 
 @media screen and (min-width: 1400px) {

@@ -30,5 +30,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 	public Page<Restaurant> findAllByOrderByLowestPriceAsc(Pageable pageable);
 
 	//ホーム用10件表示
-	public List<Restaurant> findTop10ByOrderByCreatedAtDesc();
+	public List<Restaurant> findTop6ByOrderByCreatedAtDesc();
 }
