@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyamesi.entity.Category;
+import com.example.nagoyamesi.form.CategoryEditForm;
 import com.example.nagoyamesi.form.CategoryRegisterForm;
 import com.example.nagoyamesi.repository.CategoryRepository;
 import com.example.nagoyamesi.service.CategoryService;
 
 @Controller
-@RequestMapping("/admin/restaurants/category")
+@RequestMapping("/admin/categorys")
 public class CategoryController {
 	private final CategoryRepository categoryRepository;
 	private final CategoryService categoryService;
@@ -52,25 +53,44 @@ public class CategoryController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("categoryRegisterForm", new CategoryRegisterForm());
 
-		return "admin/restaurants/category";
+		return "admin/categorys/index";
 	}
 
 	@PostMapping("/create")
 	public String careate(@ModelAttribute @Validated CategoryRegisterForm categoryRegisterForm,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		//		//カテゴリ登録済みか確認
-		//		if (categoryService.isCategoryNameRegistered(categoryRegisterForm.getCategoryName())) {
-		//			FieldError fieldError = new FieldError(bindingResult.getObjectName(), "categoryName", "既に存在するカテゴリです。");
-		//			bindingResult.addError(fieldError);
-		//		}
-		//		if (bindingResult.hasErrors()) {
-		//			return "redirect:/admin/restaurants/category";
-		//		}
+
+		if (bindingResult.hasErrors()) {
+			return "redirect:/admin/categorys/index";
+		}
 
 		categoryService.create(categoryRegisterForm);
 		redirectAttributes.addFlashAttribute("successMessage", "カテゴリ登録が完了しました。");
 
-		return "redirect:/admin/restaurants/category";
+		return "redirect:/admin/categorys/index";
+	}
+
+	@GetMapping("/{id}/edit")
+	public String edit(@PathVariable(name = "id") Integer id, Model model) {
+		Category category = categoryRepository.getReferenceById(id);
+		CategoryEditForm categoryEditForm = new CategoryEditForm(category.getId(), category.getCategoryName());
+
+		model.addAttribute("categoryEditForm", categoryEditForm);
+
+		return "admin/categorys/edit";
+	}
+
+	@PostMapping("/{id}/update")
+	public String update(@ModelAttribute @Validated CategoryEditForm categoryEditForm, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			return "admin/categorys/edit";
+		}
+
+		categoryService.update(categoryEditForm);
+		redirectAttributes.addFlashAttribute("successMessage", "カテゴリー名を変更しました。");
+
+		return "redirect:/admin/categorys";
 	}
 
 	@PostMapping("/{id}/delete")
@@ -79,7 +99,7 @@ public class CategoryController {
 
 		redirectAttributes.addFlashAttribute("successMessage", "カテゴリを削除しました。");
 
-		return "redirect:/admin/restaurants/category";
+		return "redirect:/admin/categorys";
 	}
 
 }

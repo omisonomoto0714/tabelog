@@ -26,7 +26,7 @@
                              <h1 class="mb-4 text-center">カテゴリー一覧</h1>
                              
                              <div class="d-flex justify-content-center align-items-end flex-wrap">
-							<form method="get" th:action="@{/admin/restaurants/category}" class="mb-4 text-center">
+							<form method="get" th:action="@{/admin/categorys}" class="mb-4 text-center">
 								<div class="input-group">
 									<input type="text" class="form-control" name="keyword" th:value="${keyword}"
 										placeholder="カテゴリ名">
@@ -49,12 +49,14 @@
 									<th scope="col">ID</th>
 									<th scope="col">カテゴリー名</th>
 									<th scope="col"></th>
+									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="category : ${categoryPage}">
 									<td th:text="${category.getId()}"></td>
 									<td th:text="${category.getCategoryName()}"></td>
+									<td><a th:href="@{/admin/categorys/__${category.getId()}__/edit}">編集</a></td>
 									<td><a href="#" class="nagoyamesi-link-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteCategoryModal' + category.getId()}">削除</a></td>
 								
 								<!-- 削除用モーダル -->
@@ -66,7 +68,7 @@
                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                                                      </div>
                                                      <div class="modal-footer">
-                                                         <form method="post"th:action="@{/admin/restaurants/category/__${category.getId()}__/delete}">
+                                                         <form method="post"th:action="@{/admin/categorys/__${category.getId()}__/delete}">
                                                              <button type="submit" class="btn nagoyamesi-btn-danger text-white shadow-sm">削除</button>
                                                          </form>
                                                      </div>
@@ -86,7 +88,7 @@
 						<div class="col-6">
 						<div class="card mb-4">
  							 <div class="card-body">
-								  <form method="post" th:action="@{/admin/restaurants/category/create}" th:object="${categoryRegisterForm}">
+								  <form method="post" th:action="@{/admin/categorys/create}" th:object="${categoryRegisterForm}">
    								 <label for="categoryName" class="form-label">カテゴリ登録</label>
    								 
 									<div th:if="${#fields.hasErrors('categoryName')}" class="text-danger small mb-2" th:errors="*{categoryName}"></div>
@@ -111,7 +113,7 @@
     									<li class="page-item">
 											<span th:if="${categoryPage.isFirst()}" class="page-link disabled">前</span>
     									    <a th:unless="${categoryPage.isFirst()}"
-    									       th:href="@{/admin/restaurants/category(page = ${categoryPage.getNumber() - 1}, keyword = ${keyword})}"
+    									       th:href="@{/admin/categorys(page = ${categoryPage.getNumber() - 1}, keyword = ${keyword})}"
     									        class="page-link nagoyamesi-page-link" >前</a>
   								    	</li>
   								    	
@@ -120,7 +122,7 @@
 										<span th:if="${i == categoryPage.getNumber()}"
 											class="page-link active nagoyamesi-active" th:text="${i + 1}"></span>
 										<a th:unless="${i == categoryPage.getNumber()}"
-											th:href="@{/admin/restaurants/category(page = ${i}, keyword = ${keyword})}"
+											th:href="@{/admin/restaurants/categorys(page = ${i}, keyword = ${keyword})}"
 											class="page-link nagoyamesi-page-link" th:text="${i + 1}"></a>
 									</li>
    								   	 	
@@ -128,7 +130,7 @@
    								    	<li class="page-item">
 										<span th:if="${categoryPage.isLast()}" class="page-link disabled">次</span>
 										<a th:unless="${categoryPage.isLast()}"
-											th:href="@{/admin/restaurants/category(page = ${categoryPage.getNumber() + 1}, keyword = ${keyword})}"
+											th:href="@{/admin/restaurants/categorys(page = ${categoryPage.getNumber() + 1}, keyword = ${keyword})}"
 											class="page-link nagoyamesi-page-link">次</a>
 									</li>
    								   	    

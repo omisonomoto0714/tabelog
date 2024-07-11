@@ -31,7 +31,7 @@ INSERT IGNORE INTO categories (id, name) VALUES (11, '郷土料理');
 
 --roles
 INSERT IGNORE INTO roles (id, name) VALUES (1, 'ROLE_GENERAL');
-INSERT IGNORE INTO roles (id, name) VALUES (2, 'ROLE_PAID');
+INSERT IGNORE INTO roles (id, name) VALUES (2, 'ROLE_PREMIUM');
 INSERT IGNORE INTO roles (id, name) VALUES (3, 'ROLE_ADMIN');
 
 
