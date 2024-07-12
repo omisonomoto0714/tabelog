@@ -57,17 +57,17 @@ public class CategoryController {
 	}
 
 	@PostMapping("/create")
-	public String careate(@ModelAttribute @Validated CategoryRegisterForm categoryRegisterForm,
+	public String create(@ModelAttribute @Validated CategoryRegisterForm categoryRegisterForm,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
-			return "redirect:/admin/categorys/index";
+			return "redirect:/admin/categorys";
 		}
 
 		categoryService.create(categoryRegisterForm);
 		redirectAttributes.addFlashAttribute("successMessage", "カテゴリ登録が完了しました。");
 
-		return "redirect:/admin/categorys/index";
+		return "redirect:/admin/categorys";
 	}
 
 	@GetMapping("/{id}/edit")

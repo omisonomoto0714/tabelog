@@ -20,7 +20,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests((requests) -> requests
 						.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**",
 								"/restaurants", "/restaurants/{id}", "/restaurants/{id}/reviews")
-						.permitAll() //すべてのユーザー許可
+						.permitAll() //すべて
 						.requestMatchers("/admin/**").hasRole("ADMIN") //管理者のみ
 						.anyRequest().authenticated() //それ以外はログインが必須
 				)
@@ -28,7 +28,7 @@ public class WebSecurityConfig {
 						.loginPage("/login") //ログインページ
 						.loginProcessingUrl("/login") //ログインフォームの送信先
 						.defaultSuccessUrl("/?loggedIn") //ログイン成功時の送信先
-						.failureUrl("/login?error") //ログイン失敗時の送信先
+						.failureUrl("/login?error") //ログイン失敗時の送f信先
 						.permitAll())
 				.logout((logout) -> logout
 						.logoutSuccessUrl("/?loggedOut") //ログアウト後のリダイレクト先

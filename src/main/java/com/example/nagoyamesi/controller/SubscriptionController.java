@@ -32,7 +32,7 @@ public class SubscriptionController {
 	public String index(Model model, HttpServletRequest httpServletRequest,
 			@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
 		User user = userDetailsImpl.getUser();
-		String sessionId = stripeService.createStripeSession(httpServletRequest, user);
+		String sessionId = stripeService.createStripeSession(httpServletRequest);
 		model.addAttribute("sessionId", sessionId);
 		return "subscription/register";
 	}
