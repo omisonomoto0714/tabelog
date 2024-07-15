@@ -14,7 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.nagoyamesi.entity.User;
 import com.example.nagoyamesi.entity.VerificationToken;
 import com.example.nagoyamesi.evevt.SignupEventPublisher;
+import com.example.nagoyamesi.form.PasswordResetForm;
 import com.example.nagoyamesi.form.SignupForm;
+import com.example.nagoyamesi.repository.UserRepository;
 import com.example.nagoyamesi.service.UserService;
 import com.example.nagoyamesi.service.VerificationTokenService;
 
@@ -22,12 +24,15 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AuthController {
+	private final UserRepository userRepository;
 	private final UserService userService;
 	private final SignupEventPublisher signupEventPublisher;
 	private final VerificationTokenService verificationTokenService;
 
-	public AuthController(UserService userService, SignupEventPublisher signupEventPublisher,
+	public AuthController(UserRepository userRepository, UserService userService,
+			SignupEventPublisher signupEventPublisher,
 			VerificationTokenService verificationTokenService) {
+		this.userRepository = userRepository;
 		this.userService = userService;
 		this.signupEventPublisher = signupEventPublisher;
 		this.verificationTokenService = verificationTokenService;
@@ -86,6 +91,15 @@ public class AuthController {
 		}
 
 		return "auth/verify";
+	}
+
+	@PostMapping("/reset/token/verify*")
+	public String resetPassword(@ModelAttribute @Validated PasswordResetForm passwordResetForm,
+			RedirectAttributes redirectAttributes) {
+		userService.passwordUpdate(passwordResetForm);
+		redirectAttributes.addFlashAttribute("resetPasswordSuccessMessage", "パスワードを変更しました。");
+
+		return "redirect:/";
 	}
 
 }

@@ -37,4 +37,10 @@ public class SubscriptionController {
 		return "subscription/register";
 	}
 
+	@GetMapping("/deletion")
+	public String delete(Model model) {
+
+		return "subscription/deletion";
+	}
+
 }

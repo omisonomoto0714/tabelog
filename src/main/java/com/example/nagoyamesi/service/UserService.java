@@ -6,8 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.nagoyamesi.entity.Role;
 import com.example.nagoyamesi.entity.User;
+import com.example.nagoyamesi.form.PasswordResetForm;
 import com.example.nagoyamesi.form.SignupForm;
 import com.example.nagoyamesi.form.UserEditForm;
+import com.example.nagoyamesi.repository.FavoriteRepository;
+import com.example.nagoyamesi.repository.ReservationRepository;
 import com.example.nagoyamesi.repository.RoleRepository;
 import com.example.nagoyamesi.repository.UserRepository;
 
@@ -16,11 +19,16 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final ReservationRepository reservationRepository;
+	private final FavoriteRepository favoriteRepository;
 
-	public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+	public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+			ReservationRepository reservationRepository, FavoriteRepository favoriteRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.reservationRepository = reservationRepository;
+		this.favoriteRepository = favoriteRepository;
 	}
 
 	@Transactional
@@ -78,4 +86,37 @@ public class UserService {
 		return !userEditForm.getEmail().equals(currentUser.getEmail());
 	}
 
+	//パスワードリセット機能
+	@Transactional
+	public void passwordUpdate(PasswordResetForm passwordResetForm) {
+		User user = userRepository.findByEmail(passwordResetForm.getEmail());
+
+		user.setPassword(passwordEncoder.encode(passwordResetForm.getPassword()));
+		user.setEnabled(true);
+
+		userRepository.save(user);
+	}
+
+	@Transactional
+	public void upgradeRole(Integer userId) {
+		User user = userRepository.getReferenceById(userId);
+		Role role = roleRepository.findByName("ROLE_PREMIUM");
+
+		user.setRoleId(role);
+
+		userRepository.save(user);
+
+	}
+
+	@Transactional
+	public void downgradeRole(Integer userId) {
+
+		User user = userRepository.getReferenceById(userId);
+		Role role = roleRepository.findByName("ROLE_FREEGENERAL");
+
+		user.setRoleId(role);
+
+		userRepository.save(user);
+
+	}
 }

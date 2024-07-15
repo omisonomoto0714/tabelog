@@ -38,9 +38,11 @@ public class StripeService {
 												.build())
 								.setQuantity(1L)
 								.build())
+
 				.setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-				.setSuccessUrl(requestUrl.replaceAll("/subscriptions", "") + "/premium?reserved")
-				.setCancelUrl(requestUrl.replace("/subscription/register", ""))
+
+				.setSuccessUrl(requestUrl.replaceAll("/subscription/register", "") + "/login/?reserved")
+				.setCancelUrl(requestUrl.replace("/subscription", ""))
 				.build();
 		try {
 			Session session = Session.create(params);

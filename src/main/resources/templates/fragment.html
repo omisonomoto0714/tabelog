@@ -64,27 +64,27 @@
 							
 							<!--ログイン済み-->
 							
-<!--							<li class="nav-item dropdpwm" sec:authorize="hasRole('ROLE_PAID')">-->
-<!--								<a id="navbarDropdownGeneral" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>-->
-<!--									<span sec:authentication="principal.user.name"></span>-->
-<!--								</a>-->
+							<li class="nav-item dropdpwm" sec:authorize="hasRole('ROLE_PREMIUM')">
+								<a id="navbarDropdownPremium" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+									<span sec:authentication="principal.user.name"></span>
+								</a>
 								
 								
-<!--								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownGeneral">-->
-<!--									 <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/user}">会員情報</a>  -->
-<!--                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/reservations}">予約一覧</a>  -->
-<!--                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/favorites}">お気に入り一覧</a> -->
-<!--                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/favorites}">有料会員退会</a>-->
+								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPremium">
+									 <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/user}">会員情報</a>  
+                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/reservations}">予約一覧</a>  
+                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/favorites}">お気に入り一覧</a> 
+                                     <a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/subscription/}">有料会員退会</a>
                                      
-<!--                                     <div class="dropdown-divider"></div>-->
+                                     <div class="dropdown-divider"></div>
 									
-<!--									<a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/logout}" onclick="event.preventDefault(); document/getElementById('logout-form').submit();">-->
-<!--										ログアウト-->
-<!--									</a>-->
+									<a class="dropdown-item nagoyamesi-dropdown-item" th:href="@{/logout}" onclick="event.preventDefault(); document/getElementById('logout-form').submit();">
+										ログアウト
+									</a>
 									
-<!--									<form class="d-none" id="logout-form" th:action="@{/logout}" method="post"></form>-->
-<!--								</div>-->
-<!--							</li>-->
+									<form class="d-none" id="logout-form" th:action="@{/logout}" method="post"></form>
+								</div>
+							</li>
 							
 							
 							
